@@ -1,0 +1,86 @@
+
+{% extends "base.html" %}
+
+{% block title %}Turmas | Palco em Cena{% endblock %}
+
+{% block content %}
+
+<section class="welcome classes-header">
+
+    <span class="eyebrow">ORGANIZAÇÃO DO TEATRO</span>
+
+    <h1>Turmas</h1>
+
+    <p class="muted">
+        Os professores acompanham os três grupos.
+        Cada aluno pertence a uma única turma.
+    </p>
+
+</section>
+
+{% if turmas %}
+
+    <section class="class-grid">
+
+        {% for turma, total in turmas %}
+
+            <a
+                class="class-card"
+                href="{{ url_for('turmas.detalhes', turma_id=turma.id) }}"
+            >
+
+                <div class="class-card-top">
+
+                    <span class="class-symbol">✦</span>
+
+                    <span class="class-arrow">↗</span>
+
+                </div>
+
+                <div class="class-card-content">
+
+                    <span class="class-label">TURMA</span>
+
+                    <h2>{{ turma.nome }}</h2>
+
+                    <div class="class-students">
+
+                        <strong>{{ total }}</strong>
+
+                        <span>
+                            {{ 'aluno ativo' if total == 1 else 'alunos ativos' }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div class="class-card-footer">
+
+                    <span>Ver integrantes</span>
+
+                    <span>→</span>
+
+                </div>
+
+            </a>
+
+        {% endfor %}
+
+    </section>
+
+{% else %}
+
+    <section class="panel empty-classes">
+
+        <h2>Nenhuma turma encontrada</h2>
+
+        <p class="muted">
+            As turmas cadastradas aparecerão nesta página.
+        </p>
+
+    </section>
+
+{% endif %}
+
+{% endblock %}

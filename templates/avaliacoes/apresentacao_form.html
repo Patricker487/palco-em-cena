@@ -1,0 +1,146 @@
+
+{% extends "base.html" %}
+
+{% block title %}Nova apresentação | Palco em Cena{% endblock %}
+
+{% block content %}
+
+<section class="welcome presentation-form-header">
+
+    <span class="eyebrow">PALCO EM CENA</span>
+
+    <h1>Nova apresentação</h1>
+
+    <p class="muted">
+        Cadastre uma apresentação e organize seus participantes.
+    </p>
+
+</section>
+
+<section class="panel presentation-form-panel">
+
+    <form method="POST" class="presentation-form">
+
+        <input
+            type="hidden"
+            name="csrf_token"
+            value="{{ csrf_token() }}"
+        >
+
+        <div class="form-section">
+
+            <h2>Informações da apresentação</h2>
+
+            <p class="muted">
+                Preencha os dados principais do espetáculo.
+            </p>
+
+            <label for="titulo">Título da apresentação</label>
+
+            <input
+                type="text"
+                id="titulo"
+                name="titulo"
+                maxlength="140"
+                placeholder="Ex.: O espetáculo de fim de ano"
+                required
+            >
+
+            <label for="data">Data da apresentação</label>
+
+            <input
+                type="date"
+                id="data"
+                name="data"
+                required
+            >
+
+            <label for="descricao">Descrição</label>
+
+            <textarea
+                id="descricao"
+                name="descricao"
+                rows="5"
+                placeholder="Adicione informações sobre o espetáculo, tema ou outras observações..."
+            ></textarea>
+
+        </div>
+
+        <div class="form-section">
+
+            <h2>Participantes</h2>
+
+            <p class="muted">
+                Selecione os alunos que participarão desta apresentação.
+            </p>
+
+            {% if alunos %}
+
+                <div class="participants-list">
+
+                    {% for aluno in alunos %}
+
+                        <label class="participant-option">
+
+                            <input
+                                type="checkbox"
+                                name="participantes"
+                                value="{{ aluno.id }}"
+                            >
+
+                            <span class="participant-checkbox"></span>
+
+                            <span class="participant-name">
+                                {{ aluno.nome }}
+                            </span>
+
+                        </label>
+
+                    {% endfor %}
+
+                </div>
+
+                <p class="participants-hint">
+                    Marque todos os alunos que participarão do espetáculo.
+                </p>
+
+            {% else %}
+
+                <div class="no-participants">
+
+                    <strong>Nenhum aluno disponível</strong>
+
+                    <p class="muted">
+                        Não existem alunos ativos cadastrados no momento.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+        <div class="presentation-form-actions">
+
+            <a
+                class="button button-secondary button-link"
+                href="{{ url_for('avaliacoes.lista') }}"
+            >
+                Cancelar
+            </a>
+
+            <button
+                class="button button-primary"
+                type="submit"
+                {% if not alunos %}disabled{% endif %}
+            >
+                Cadastrar apresentação
+            </button>
+
+        </div>
+
+    </form>
+
+</section>
+
+{% endblock %}

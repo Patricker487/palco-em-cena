@@ -1,0 +1,118 @@
+
+{% extends "base.html" %}
+
+{% block title %}Início · Palco em Cena{% endblock %}
+
+{% block content %}
+
+<section class="welcome">
+    <p class="eyebrow">PAINEL PRINCIPAL</p>
+    <h1>Olá, {{ current_user.nome }}.</h1>
+    <p class="muted">
+        Bem-vindo ao Palco em Cena. Seu espaço para acompanhar
+        o desenvolvimento artístico.
+    </p>
+</section>
+
+{% if current_user.perfil == "admin" %}
+
+    <section class="panel">
+        <span class="tag">Administração</span>
+        <h2>Gerenciar usuários</h2>
+        <p>
+            Cadastre professores e alunos, atualize informações
+            e vincule cada aluno à sua turma.
+        </p>
+
+        <div class="dashboard-actions">
+            <a class="button button-primary button-link"
+               href="{{ url_for('admin.usuarios') }}">
+                Gerenciar usuários
+            </a>
+
+            <a class="button button-secondary button-link"
+               href="{{ url_for('turmas.lista') }}">
+                Ver turmas
+            </a>
+        </div>
+    </section>
+
+    <section class="panel" style="margin-top: 20px;">
+        <span class="tag">Desenvolvimento artístico</span>
+        <h2>Apresentações e avaliações</h2>
+        <p>
+            Cadastre apresentações, selecione participantes
+            e acompanhe as avaliações dos professores.
+        </p>
+
+        <a class="button button-primary button-link"
+           href="{{ url_for('avaliacoes.lista') }}">
+            Acessar apresentações
+        </a>
+    </section>
+
+{% elif current_user.perfil == "professor" %}
+
+    <section class="panel">
+        <span class="tag">Professor</span>
+        <h2>Suas turmas</h2>
+        <p>
+            Consulte os integrantes dos grupos Juvenil,
+            Adolescentes e Adultos.
+        </p>
+
+        <a class="button button-primary button-link"
+           href="{{ url_for('turmas.lista') }}">
+            Acessar turmas
+        </a>
+    </section>
+
+    <section class="panel" style="margin-top: 20px;">
+        <span class="tag">Avaliação artística</span>
+        <h2>Apresentações</h2>
+        <p>
+            Cadastre apresentações, selecione os alunos
+            participantes e prepare suas avaliações.
+        </p>
+
+        <a class="button button-primary button-link"
+           href="{{ url_for('avaliacoes.lista') }}">
+            Acessar apresentações
+        </a>
+    </section>
+
+{% else %}
+
+    <section class="panel">
+        <span class="tag">Artista</span>
+        <h2>Seu desenvolvimento artístico</h2>
+
+        {% if current_user.turma %}
+            <p>
+                Você está na turma
+                <strong>{{ current_user.turma.nome }}</strong>.
+            </p>
+        {% else %}
+            <p>
+                Sua turma ainda não foi definida.
+                Converse com a administração do teatro.
+            </p>
+        {% endif %}
+    </section>
+
+    <section class="panel" style="margin-top: 20px;">
+        <span class="tag">Suas apresentações</span>
+        <h2>Acompanhe sua participação</h2>
+        <p>
+            Consulte as apresentações das quais você participa.
+        </p>
+
+        <a class="button button-primary button-link"
+           href="{{ url_for('avaliacoes.lista') }}">
+            Ver apresentações
+        </a>
+    </section>
+
+{% endif %}
+
+{% endblock %}

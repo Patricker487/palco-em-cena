@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Editar usuário' if usuario else 'Novo usuário' }} · Palco em Cena{% endblock %}
+{% block content %}
+<div class="form-page"><a class="back-link" href="{{ url_for('admin.usuarios') }}">← Voltar para usuários</a><section class="panel"><p class="eyebrow">ADMINISTRAÇÃO</p><h1>{{ 'Editar usuário' if usuario else 'Novo usuário' }}</h1><p class="muted">Alunos precisam estar vinculados a uma única turma. Professores acompanham todas as turmas.</p>
+<form method="post"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+<label for="nome">Nome completo</label><input id="nome" name="nome" maxlength="120" required value="{{ usuario.nome if usuario else '' }}">
+<label for="email">E-mail</label><input id="email" name="email" type="email" maxlength="180" required value="{{ usuario.email if usuario else '' }}">
+<label for="perfil">Perfil</label><select id="perfil" name="perfil" required><option value="">Selecione</option>{% if usuario and usuario.perfil == "admin" %}<option value="admin" selected>Administrador</option>{% endif %}{% for valor, rotulo in perfis.items() %}<option value="{{ valor }}" {% if usuario and usuario.perfil == valor %}selected{% endif %}>{{ rotulo }}</option>{% endfor %}</select>
+<label for="turma_id">Turma do aluno</label><select id="turma_id" name="turma_id"><option value="">Não se aplica / selecione uma turma</option>{% for turma in turmas %}<option value="{{ turma.id }}" {% if usuario and usuario.turma_id == turma.id %}selected{% endif %}>{{ turma.nome }}</option>{% endfor %}</select><p class="hint">Obrigatório para o perfil Aluno. Um aluno só pode estar em uma turma por vez.</p>
+<label for="senha">{{ 'Nova senha (opcional)' if usuario else 'Senha inicial' }}</label><input id="senha" name="senha" type="password" minlength="8" {% if not usuario %}required{% endif %} autocomplete="new-password"><p class="hint">{% if usuario %}Deixe em branco para manter a senha atual.{% else %}Mínimo de 8 caracteres.{% endif %}</p>
+<div class="form-actions"><a class="button button-quiet button-link" href="{{ url_for('admin.usuarios') }}">Cancelar</a><button class="button button-primary" type="submit">Salvar usuário</button></div></form></section></div>
+{% endblock %}

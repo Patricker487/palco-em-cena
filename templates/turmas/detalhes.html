@@ -1,0 +1,91 @@
+
+{% extends "base.html" %}
+
+{% block title %}{{ turma.nome }} | Palco em Cena{% endblock %}
+
+{% block content %}
+
+<a class="back-link" href="{{ url_for('turmas.lista') }}">
+    ← Voltar para turmas
+</a>
+
+<section class="welcome class-details-header">
+
+    <span class="eyebrow">ORGANIZAÇÃO DO TEATRO</span>
+
+    <h1>{{ turma.nome }}</h1>
+
+    <p class="muted">
+        Alunos ativos vinculados a esta turma.
+    </p>
+
+</section>
+
+<section class="roster-section">
+
+    <div class="roster-heading">
+
+        <div>
+            <h2>Integrantes</h2>
+            <p class="muted">
+                Alunos matriculados nesta turma.
+            </p>
+        </div>
+
+        <span class="tag">
+            {{ alunos|length }}
+            {{ 'integrante' if alunos|length == 1 else 'integrantes' }}
+        </span>
+
+    </div>
+
+    {% if alunos %}
+
+        <div class="roster-list">
+
+            {% for aluno in alunos %}
+
+                <article class="roster-card">
+
+                    <div class="avatar-initial">
+                        {{ aluno.nome[:1]|upper }}
+                    </div>
+
+                    <div class="roster-info">
+
+                        <strong>{{ aluno.nome }}</strong>
+
+                        <span>{{ aluno.email }}</span>
+
+                    </div>
+
+                    <span class="roster-status">
+                        Ativo
+                    </span>
+
+                </article>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <section class="panel empty-roster">
+
+            <div class="empty-roster-icon">♧</div>
+
+            <h2>Esta turma ainda não tem alunos</h2>
+
+            <p class="muted">
+                O administrador pode matricular alunos
+                pelo gerenciamento de usuários.
+            </p>
+
+        </section>
+
+    {% endif %}
+
+</section>
+
+{% endblock %}

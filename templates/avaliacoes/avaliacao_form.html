@@ -1,0 +1,161 @@
+
+{% extends "base.html" %}
+
+{% block title %}Avaliar apresentação | Palco em Cena{% endblock %}
+
+{% block content %}
+
+<section class="welcome evaluation-header">
+
+    <span class="eyebrow">AVALIAÇÃO ARTÍSTICA</span>
+
+    <h1>{{ apresentacao.titulo }}</h1>
+
+    <p class="muted">
+        Registre o desenvolvimento artístico dos participantes.
+    </p>
+
+</section>
+
+<section class="panel evaluation-form-panel">
+
+    <form method="POST" class="evaluation-form">
+
+        <input
+            type="hidden"
+            name="csrf_token"
+            value="{{ csrf_token() }}"
+        >
+
+        <div class="form-section">
+
+            <h2>Informações da avaliação</h2>
+
+            <p class="muted">
+                Primeiro, escolha o tipo de avaliação que deseja realizar.
+            </p>
+
+            <label for="tipo">Tipo de avaliação</label>
+
+            <select id="tipo" name="tipo" required>
+                <option value="">Selecione o tipo de avaliação</option>
+                <option value="individual">Avaliação individual</option>
+                <option value="coletiva">Avaliação coletiva</option>
+            </select>
+
+            <div id="aluno-container">
+
+                <label for="aluno_id">Aluno avaliado</label>
+
+                <select id="aluno_id" name="aluno_id">
+                    <option value="">Selecione um aluno</option>
+
+                    {% for aluno in alunos %}
+                        <option value="{{ aluno.id }}">
+                            {{ aluno.nome }}
+                        </option>
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+        </div>
+
+        <div class="form-section">
+
+            <h2>Critérios de avaliação</h2>
+
+            <p class="muted">
+                Atribua uma nota de 1 a 10 para cada critério.
+            </p>
+
+            <div class="criteria-form-grid">
+
+                {% for chave, nome in criterios.items() %}
+
+                    <div class="criterion-form-card">
+
+                        <label for="{{ chave }}">
+                            {{ nome }}
+                        </label>
+
+                        <select
+                            id="{{ chave }}"
+                            name="{{ chave }}"
+                            required
+                        >
+                            <option value="">Escolha uma nota</option>
+
+                            {% for nota in range(1, 11) %}
+                                <option value="{{ nota }}">
+                                    {{ nota }} / 10
+                                </option>
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+        <div class="form-section">
+
+            <h2>Observações do professor</h2>
+
+            <p class="muted">
+                Registre os pontos positivos e os aspectos que podem ser desenvolvidos.
+            </p>
+
+            <label for="observacoes">Comentários e orientações</label>
+
+            <textarea
+                id="observacoes"
+                name="observacoes"
+                rows="6"
+                placeholder="Descreva o desempenho, os pontos fortes e as oportunidades de melhoria..."
+            ></textarea>
+
+        </div>
+
+        <div class="evaluation-form-actions">
+
+            <a
+                class="button button-secondary button-link"
+                href="{{ url_for('avaliacoes.lista') }}"
+            >
+                Cancelar
+            </a>
+
+            <button class="button button-primary" type="submit">
+                Salvar como rascunho
+            </button>
+
+        </div>
+
+    </form>
+
+</section>
+
+<script>
+const tipoSelect = document.getElementById("tipo");
+const alunoContainer = document.getElementById("aluno-container");
+const alunoSelect = document.getElementById("aluno_id");
+
+function atualizarTipoAvaliacao() {
+    const individual = tipoSelect.value === "individual";
+
+    alunoContainer.style.display = individual ? "block" : "none";
+    alunoSelect.required = individual;
+}
+
+tipoSelect.addEventListener("change", atualizarTipoAvaliacao);
+
+atualizarTipoAvaliacao();
+</script>
+
+{% endblock %}

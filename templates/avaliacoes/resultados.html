@@ -1,0 +1,361 @@
+
+{% extends "base.html" %}
+
+{% block title %}Avaliações | Palco em Cena{% endblock %}
+
+{% block content %}
+
+<style>
+    .results-header {
+        margin-bottom: 28px;
+    }
+
+    .results-header h1 {
+        margin: 8px 0;
+    }
+
+    .evaluation-card {
+        background: var(--panel, #ffffff);
+        border: 1px solid var(--border, #e5e5e5);
+        border-radius: 16px;
+        padding: 26px;
+        margin-bottom: 20px;
+    }
+
+    .evaluation-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+
+    .evaluation-type {
+        display: inline-block;
+        background: rgba(190, 48, 62, 0.10);
+        color: #be303e;
+        padding: 7px 12px;
+        border-radius: 30px;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .evaluation-status {
+        font-size: 13px;
+        font-weight: 700;
+        padding: 7px 12px;
+        border-radius: 30px;
+    }
+
+    .status-published {
+        background: #e6f5eb;
+        color: #267344;
+    }
+
+    .status-draft {
+        background: #fff1d9;
+        color: #946000;
+    }
+
+    .evaluation-card h2 {
+        margin: 0 0 8px;
+    }
+
+    .evaluation-teacher {
+        color: var(--muted, #777777);
+        margin-bottom: 24px;
+    }
+
+    .score-summary {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        background: rgba(190, 48, 62, 0.06);
+        border-radius: 12px;
+        padding: 16px 20px;
+        margin-bottom: 24px;
+    }
+
+    .score-summary span {
+        color: var(--muted, #777777);
+        font-size: 14px;
+    }
+
+    .score-average {
+        color: #be303e;
+        font-size: 28px;
+        font-weight: 800;
+    }
+
+    .criteria-list {
+        display: grid;
+        gap: 20px;
+    }
+
+    .criterion-info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 9px;
+    }
+
+    .criterion-info strong {
+        font-size: 14px;
+    }
+
+    .criterion-score {
+        font-weight: 800;
+        white-space: nowrap;
+    }
+
+    .score-track {
+        height: 9px;
+        width: 100%;
+        background: var(--border, #e5e5e5);
+        border-radius: 20px;
+        overflow: hidden;
+    }
+
+    .score-fill {
+        height: 100%;
+        background: #be303e;
+        border-radius: 20px;
+    }
+
+    .observations {
+        margin-top: 28px;
+        padding: 20px;
+        background: rgba(120, 120, 120, 0.07);
+        border-radius: 12px;
+    }
+
+    .observations h3 {
+        margin: 0 0 12px;
+        font-size: 16px;
+    }
+
+    .observations p {
+        margin: 0;
+        line-height: 1.7;
+        white-space: pre-wrap;
+    }
+
+    .evaluation-actions {
+        margin-top: 24px;
+    }
+
+    .empty-results {
+        text-align: center;
+        padding: 40px 20px;
+    }
+
+    .results-footer {
+        margin-top: 28px;
+    }
+
+    @media (max-width: 600px) {
+        .evaluation-card {
+            padding: 18px;
+        }
+
+        .score-summary {
+            padding: 14px;
+        }
+
+        .score-average {
+            font-size: 24px;
+        }
+
+        .criterion-info {
+            align-items: flex-start;
+        }
+    }
+</style>
+
+<section class="welcome results-header">
+    <span class="eyebrow">DESENVOLVIMENTO ARTÍSTICO</span>
+
+    <h1>{{ apresentacao.titulo }}</h1>
+
+    <p class="muted">
+        Acompanhe os resultados e a evolução artística desta apresentação.
+    </p>
+</section>
+
+{% if avaliacoes %}
+
+    {% for avaliacao in avaliacoes %}
+
+        {% set resumo = namespace(total=0, quantidade=0) %}
+
+        {% for nota in avaliacao.notas %}
+            {% set resumo.total = resumo.total + nota.pontuacao %}
+            {% set resumo.quantidade = resumo.quantidade + 1 %}
+        {% endfor %}
+
+        <article class="evaluation-card">
+
+            <div class="evaluation-top">
+
+                <span class="evaluation-type">
+                    {% if avaliacao.tipo == "individual" %}
+                        Avaliação individual
+                    {% else %}
+                        Avaliação coletiva
+                    {% endif %}
+                </span>
+
+                {% if equipe %}
+                    {% if avaliacao.publicada %}
+                        <span class="evaluation-status status-published">
+                            Publicada
+                        </span>
+                    {% else %}
+                        <span class="evaluation-status status-draft">
+                            Rascunho
+                        </span>
+                    {% endif %}
+                {% endif %}
+
+            </div>
+
+            {% if avaliacao.tipo == "individual" %}
+                <h2>{{ avaliacao.aluno.nome }}</h2>
+            {% else %}
+                <h2>Desempenho coletivo</h2>
+            {% endif %}
+
+            <p class="evaluation-teacher">
+                Avaliado por {{ avaliacao.professor.nome }}
+            </p>
+
+            {% if resumo.quantidade > 0 %}
+
+                <div class="score-summary">
+
+                    <div>
+                        <strong>Média geral</strong>
+                        <br>
+                        <span>Desempenho nos critérios avaliados</span>
+                    </div>
+
+                    <div class="score-average">
+                        {{ "%.1f"|format(resumo.total / resumo.quantidade) }}/10
+                    </div>
+
+                </div>
+
+            {% endif %}
+
+            <h3 style="margin-bottom: 20px;">
+                Critérios de avaliação
+            </h3>
+
+            <div class="criteria-list">
+
+                {% for nota in avaliacao.notas %}
+
+                    <div class="criterion">
+
+                        <div class="criterion-info">
+
+                            <strong>
+                                {{ criterios.get(nota.criterio, nota.criterio) }}
+                            </strong>
+
+                            <span class="criterion-score">
+                                {{ nota.pontuacao }}/10
+                            </span>
+
+                        </div>
+
+                        <div
+                            class="score-track"
+                            role="progressbar"
+                            aria-label="{{ criterios.get(nota.criterio, nota.criterio) }}"
+                            aria-valuemin="0"
+                            aria-valuemax="10"
+                            aria-valuenow="{{ nota.pontuacao }}"
+                        >
+                            <div class="score-fill score-{{ nota.pontuacao }}"></div>
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+            {% if avaliacao.observacoes %}
+
+                <section class="observations">
+
+                    <h3>Observações do professor</h3>
+
+                    <p class="muted">{{ avaliacao.observacoes }}</p>
+
+                </section>
+
+            {% endif %}
+
+            {% if equipe and not avaliacao.publicada %}
+
+                <div class="evaluation-actions">
+
+                    <form
+                        method="POST"
+                        action="{{ url_for('avaliacoes.publicar', avaliacao_id=avaliacao.id) }}"
+                    >
+
+                        <input
+                            type="hidden"
+                            name="csrf_token"
+                            value="{{ csrf_token() }}"
+                        >
+
+                        <button
+                            class="button button-primary"
+                            type="submit"
+                        >
+                            Publicar avaliação
+                        </button>
+
+                    </form>
+
+                </div>
+
+            {% endif %}
+
+        </article>
+
+    {% endfor %}
+
+{% else %}
+
+    <section class="panel empty-results">
+
+        <h2>Nenhuma avaliação disponível</h2>
+
+        <p class="muted">
+            Ainda não existem avaliações disponíveis para esta apresentação.
+        </p>
+
+    </section>
+
+{% endif %}
+
+<div class="results-footer">
+
+    <a
+        class="button button-secondary button-link"
+        href="{{ url_for('avaliacoes.lista') }}"
+    >
+        Voltar para apresentações
+    </a>
+
+</div>
+
+{% endblock %}

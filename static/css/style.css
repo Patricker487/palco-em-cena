@@ -1,0 +1,1407 @@
+
+/* =========================================
+   PALCO EM CENA — ESTILO GLOBAL
+   ========================================= */
+
+:root {
+    --graphite: #242424;
+    --graphite-light: #303030;
+    --graphite-soft: #3b3b3b;
+
+    --red: #c83232;
+    --red-dark: #a92323;
+    --red-light: #f8eaea;
+
+    --white: #ffffff;
+    --light: #f5f5f5;
+    --muted: #777777;
+    --border: #e5e5e5;
+    --panel: #ffffff;
+
+    --success: #258451;
+    --warning: #d18a21;
+    --danger: #c83232;
+
+    --radius: 14px;
+    --shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
+    --transition: 0.2s ease;
+}
+
+/* =========================================
+   RESET E CONFIGURAÇÕES GERAIS
+   ========================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+    background: var(--light);
+    color: var(--graphite);
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+img {
+    max-width: 100%;
+}
+
+/* =========================================
+   ACESSIBILIDADE
+   ========================================= */
+
+.skip-link {
+    position: absolute;
+    top: -100px;
+    left: 16px;
+    z-index: 1000;
+
+    padding: 10px 16px;
+    background: var(--white);
+    color: var(--graphite);
+    border-radius: 8px;
+}
+
+.skip-link:focus {
+    top: 10px;
+}
+
+:focus-visible {
+    outline: 3px solid rgba(200, 50, 50, 0.35);
+    outline-offset: 3px;
+}
+
+/* =========================================
+   CABEÇALHO
+   ========================================= */
+
+.topbar {
+    min-height: 76px;
+    padding: 12px 5%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    background: var(--graphite);
+    color: var(--white);
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    min-width: 0;
+}
+
+.brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    color: var(--white);
+    font-size: 19px;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.brand:hover {
+    color: #f0f0f0;
+}
+
+.brand-mark {
+    width: 38px;
+    height: 38px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--red);
+    border-radius: 10px;
+
+    color: var(--white);
+    font-size: 21px;
+    font-weight: 800;
+}
+
+.logout-form {
+    margin: 0;
+}
+
+/* =========================================
+   CONTEÚDO PRINCIPAL
+   ========================================= */
+
+.container {
+    width: min(1120px, 90%);
+    margin: 0 auto;
+    padding: 42px 0 60px;
+    flex: 1;
+}
+
+main {
+    width: 100%;
+}
+
+.welcome {
+    margin-bottom: 30px;
+}
+
+.welcome h1,
+.page-heading h1 {
+    margin: 4px 0 8px;
+    font-size: clamp(28px, 4vw, 38px);
+    line-height: 1.2;
+    letter-spacing: -1px;
+}
+
+.welcome p,
+.page-heading p {
+    margin-top: 5px;
+}
+
+.eyebrow {
+    margin: 0;
+    color: var(--red);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.muted {
+    color: var(--muted);
+}
+
+.page-heading {
+    margin-bottom: 28px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/* =========================================
+   PAINÉIS E CARDS
+   ========================================= */
+
+.panel {
+    padding: 24px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.panel h2 {
+    margin-top: 0;
+}
+
+.panel p:last-child {
+    margin-bottom: 0;
+}
+
+/* =========================================
+   BOTÕES
+   ========================================= */
+
+.button {
+    min-height: 42px;
+    padding: 10px 18px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    border: 1px solid transparent;
+    border-radius: 9px;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    transition:
+        background var(--transition),
+        border-color var(--transition),
+        transform var(--transition),
+        box-shadow var(--transition);
+}
+
+.button:hover {
+    transform: translateY(-1px);
+}
+
+.button-primary {
+    background: var(--red);
+    color: var(--white);
+}
+
+.button-primary:hover {
+    background: var(--red-dark);
+    box-shadow: 0 4px 12px rgba(200, 50, 50, 0.2);
+}
+
+.button-secondary {
+    background: var(--white);
+    color: var(--graphite);
+    border-color: var(--border);
+}
+
+.button-secondary:hover {
+    background: var(--light);
+    border-color: #cccccc;
+}
+
+.button-quiet {
+    background: transparent;
+    color: var(--white);
+    border-color: rgba(255, 255, 255, 0.25);
+}
+
+.button-quiet:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.button-back {
+    min-height: 38px;
+    padding: 8px 13px;
+
+    background: transparent;
+    color: var(--white);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.button-back:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.button-link {
+    text-align: center;
+}
+
+.full {
+    width: 100%;
+}
+
+/* =========================================
+   FORMULÁRIOS
+   ========================================= */
+
+form {
+    margin: 0;
+}
+
+.form-section {
+    margin-bottom: 28px;
+}
+
+.form-section h2,
+.form-section h3 {
+    margin-top: 0;
+}
+
+label {
+    display: block;
+    margin-bottom: 7px;
+
+    color: var(--graphite);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    min-height: 44px;
+    padding: 11px 13px;
+
+    background: var(--white);
+    color: var(--graphite);
+
+    border: 1px solid var(--border);
+    border-radius: 9px;
+
+    outline: none;
+    transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--red);
+    box-shadow: 0 0 0 3px rgba(200, 50, 50, 0.09);
+}
+
+textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    width: auto;
+    min-height: auto;
+    accent-color: var(--red);
+}
+
+input[type="checkbox"]:focus,
+input[type="radio"]:focus {
+    box-shadow: none;
+}
+
+.hint {
+    display: block;
+    margin-top: 6px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.form-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+/* =========================================
+   MENSAGENS DO SISTEMA
+   ========================================= */
+
+.flash-messages {
+    margin-bottom: 22px;
+}
+
+.alert {
+    margin-bottom: 12px;
+    padding: 13px 16px;
+
+    border-radius: 9px;
+    border: 1px solid transparent;
+    font-size: 14px;
+}
+
+.alert-success {
+    color: #17643d;
+    background: #e9f7ef;
+    border-color: #c9ead7;
+}
+
+.alert-danger,
+.alert-error {
+    color: #9c2424;
+    background: #fceaea;
+    border-color: #f2cccc;
+}
+
+.alert-warning {
+    color: #80530c;
+    background: #fff5df;
+    border-color: #f2dfb4;
+}
+
+.alert-info {
+    color: #235a82;
+    background: #eaf4fb;
+    border-color: #cce3f2;
+}
+
+/* =========================================
+   TAGS E STATUS
+   ========================================= */
+
+.tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 10px;
+
+    background: var(--red-light);
+    color: var(--red-dark);
+
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.status-active,
+.status-published {
+    background: #e9f7ef;
+    color: #17643d;
+}
+
+.status-pending,
+.status-draft {
+    background: #fff5df;
+    color: #80530c;
+}
+
+/* =========================================
+   LOGIN E AUTENTICAÇÃO
+   ========================================= */
+
+.auth-layout {
+    min-height: 65vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-panel {
+    width: min(440px, 100%);
+    padding: 36px;
+
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+}
+
+.login-panel h1 {
+    margin: 0 0 8px;
+    font-size: 28px;
+}
+
+.login-panel .form-group {
+    margin-bottom: 20px;
+}
+
+/* =========================================
+   DASHBOARD
+   ========================================= */
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.dashboard-card {
+    min-height: 170px;
+    padding: 23px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+
+    transition: transform var(--transition), border-color var(--transition);
+}
+
+.dashboard-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--red);
+}
+
+.dashboard-card h2 {
+    margin: 0;
+    font-size: 19px;
+}
+
+.dashboard-card p {
+    margin-bottom: 0;
+    color: var(--muted);
+}
+
+/* =========================================
+   TABELAS
+   ========================================= */
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--white);
+}
+
+th,
+td {
+    padding: 13px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+
+th {
+    background: #f7f7f7;
+    color: var(--graphite);
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+td {
+    font-size: 14px;
+}
+
+tbody tr:hover {
+    background: #fafafa;
+}
+
+/* =========================================
+   APRESENTAÇÕES
+   ========================================= */
+
+.presentations-header {
+    margin-bottom: 28px;
+}
+
+.presentations-list {
+    display: grid;
+    gap: 18px;
+}
+
+.presentation-card {
+    padding: 23px;
+
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+
+    transition: transform var(--transition), border-color var(--transition);
+}
+
+.presentation-card:hover {
+    border-color: #d6aaaa;
+}
+
+.presentation-date {
+    display: inline-block;
+    margin-bottom: 9px;
+
+    color: var(--red);
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.presentation-heading {
+    margin: 0 0 8px;
+    font-size: 21px;
+}
+
+.presentation-description {
+    margin: 0 0 16px;
+    color: var(--muted);
+}
+
+.presentation-actions {
+    margin-top: 18px;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.empty-presentations {
+    padding: 35px;
+    text-align: center;
+    background: var(--white);
+    border: 1px dashed #cccccc;
+    border-radius: var(--radius);
+}
+
+/* =========================================
+   CADASTRO DE APRESENTAÇÃO
+   ========================================= */
+
+.presentation-form-header {
+    margin-bottom: 25px;
+}
+
+.presentation-form-panel {
+    padding: 28px;
+
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.presentation-form {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.participants-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.participant-option {
+    min-height: 55px;
+    padding: 12px;
+
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    background: #fafafa;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+
+    cursor: pointer;
+    transition: background var(--transition), border-color var(--transition);
+}
+
+.participant-option:hover {
+    border-color: var(--red);
+    background: var(--red-light);
+}
+
+.participant-option:has(input:checked) {
+    background: var(--red-light);
+    border-color: var(--red);
+}
+
+.participant-option input {
+    flex-shrink: 0;
+}
+
+.participant-name {
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.participants-hint {
+    margin-top: 10px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.no-participants {
+    padding: 18px;
+    background: #fafafa;
+    border-radius: 9px;
+    color: var(--muted);
+}
+
+.presentation-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+/* =========================================
+   AVALIAÇÕES
+   ========================================= */
+
+.evaluation-header {
+    margin-bottom: 25px;
+}
+
+.evaluation-form-panel {
+    padding: 28px;
+
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.evaluation-form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.criteria-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+}
+
+.criterion-form-card {
+    padding: 17px;
+
+    background: #fafafa;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+}
+
+.criterion-form-card label {
+    margin-bottom: 10px;
+}
+
+.criterion-form-card input,
+.criterion-form-card select {
+    background: var(--white);
+}
+
+.evaluation-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+/* =========================================
+   RESULTADOS E NOTAS
+   ========================================= */
+
+.evaluation-card {
+    margin-bottom: 18px;
+    padding: 23px;
+
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.evaluation-card h2 {
+    margin-top: 0;
+}
+
+.evaluation-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 18px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.scores-list {
+    display: grid;
+    gap: 15px;
+}
+
+.score-item {
+    display: grid;
+    grid-template-columns: minmax(130px, 190px) 1fr 40px;
+    align-items: center;
+    gap: 12px;
+}
+
+.score-label {
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.score-track {
+    height: 9px;
+    overflow: hidden;
+
+    background: #eeeeee;
+    border-radius: 20px;
+}
+
+.score-fill {
+    height: 100%;
+    border-radius: 20px;
+    background: var(--red);
+}
+
+.score-value {
+    text-align: right;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+/* Classes de pontuação */
+
+.score-fill.score-1 {
+    width: 10%;
+}
+
+.score-fill.score-2 {
+    width: 20%;
+}
+
+.score-fill.score-3 {
+    width: 30%;
+}
+
+.score-fill.score-4 {
+    width: 40%;
+}
+
+.score-fill.score-5 {
+    width: 50%;
+}
+
+.score-fill.score-6 {
+    width: 60%;
+}
+
+.score-fill.score-7 {
+    width: 70%;
+}
+
+.score-fill.score-8 {
+    width: 80%;
+}
+
+.score-fill.score-9 {
+    width: 90%;
+}
+
+.score-fill.score-10 {
+    width: 100%;
+}
+
+.evaluation-observations {
+    margin-top: 20px;
+    padding: 16px;
+
+    background: #fafafa;
+    border-left: 3px solid var(--red);
+    border-radius: 5px;
+}
+
+.evaluation-observations h3 {
+    margin: 0 0 8px;
+    font-size: 14px;
+}
+
+.evaluation-observations p {
+    margin: 0;
+    color: var(--muted);
+    white-space: pre-wrap;
+}
+
+/* =========================================
+   TURMAS
+   ========================================= */
+
+.classes-header {
+    margin-bottom: 28px;
+}
+
+.class-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.class-card {
+    min-height: 210px;
+    padding: 22px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+
+    transition: transform var(--transition), border-color var(--transition);
+}
+
+.class-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--red);
+}
+
+.class-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.class-symbol {
+    width: 43px;
+    height: 43px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--red-light);
+    color: var(--red);
+    border-radius: 12px;
+
+    font-size: 22px;
+}
+
+.class-arrow {
+    color: var(--muted);
+    font-size: 20px;
+}
+
+.class-card-content h2 {
+    margin: 15px 0 4px;
+    font-size: 20px;
+}
+
+.class-label {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.class-students {
+    margin: 0;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.class-card-footer {
+    margin-top: 18px;
+    padding-top: 13px;
+
+    border-top: 1px solid var(--border);
+    color: var(--red);
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.empty-classes {
+    padding: 35px;
+    text-align: center;
+    background: var(--white);
+    border: 1px dashed #cccccc;
+    border-radius: var(--radius);
+}
+
+/* =========================================
+   DETALHES DA TURMA E ALUNOS
+   ========================================= */
+
+.class-details-header {
+    margin-bottom: 25px;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 20px;
+
+    color: var(--red);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.back-link:hover {
+    color: var(--red-dark);
+    text-decoration: underline;
+}
+
+.roster-section {
+    padding: 25px;
+
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.roster-heading {
+    margin-bottom: 20px;
+}
+
+.roster-heading h2 {
+    margin: 0;
+    font-size: 19px;
+}
+
+.roster-list {
+    display: grid;
+    gap: 10px;
+}
+
+.roster-card {
+    min-width: 0;
+    padding: 13px;
+
+    display: flex;
+    align-items: center;
+    gap: 13px;
+
+    background: #fafafa;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+}
+
+.avatar-initial {
+    width: 42px;
+    height: 42px;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--red-light);
+    color: var(--red);
+
+    border-radius: 50%;
+    font-size: 17px;
+    font-weight: 800;
+}
+
+.roster-info {
+    min-width: 0;
+    flex: 1;
+}
+
+.roster-info strong {
+    display: block;
+    font-size: 14px;
+}
+
+.roster-info small {
+    display: block;
+    overflow-wrap: anywhere;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.roster-status {
+    flex-shrink: 0;
+}
+
+.empty-roster {
+    padding: 35px 20px;
+    text-align: center;
+}
+
+.empty-roster h3 {
+    margin-bottom: 5px;
+}
+
+.empty-roster-icon {
+    margin-bottom: 10px;
+    color: var(--red);
+    font-size: 35px;
+}
+
+/* =========================================
+   RODAPÉ
+   ========================================= */
+
+.footer {
+    padding: 22px 5%;
+    margin-top: auto;
+
+    background: var(--graphite);
+    color: #aaaaaa;
+
+    text-align: center;
+    font-size: 12px;
+}
+
+/* =========================================
+   RESPONSIVIDADE — TABLETS
+   ========================================= */
+
+@media (max-width: 900px) {
+    .dashboard-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .class-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .container {
+        width: 92%;
+    }
+}
+
+/* =========================================
+   RESPONSIVIDADE — CELULARES
+   ========================================= */
+
+@media (max-width: 600px) {
+    body {
+        font-size: 14px;
+    }
+
+    .topbar {
+        min-height: 65px;
+        padding: 10px 4%;
+        gap: 10px;
+    }
+
+    .header-left {
+        gap: 9px;
+    }
+
+    .brand {
+        gap: 7px;
+        font-size: 15px;
+    }
+
+    .brand-mark {
+        width: 32px;
+        height: 32px;
+        font-size: 17px;
+    }
+
+    .button {
+        min-height: 40px;
+        padding: 9px 12px;
+        font-size: 12px;
+    }
+
+    .button-back {
+        padding: 8px 10px;
+    }
+
+    .container {
+        width: 92%;
+        padding: 28px 0 40px;
+    }
+
+    .welcome {
+        margin-bottom: 23px;
+    }
+
+    .welcome h1,
+    .page-heading h1 {
+        font-size: 27px;
+    }
+
+    .page-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .panel {
+        padding: 18px;
+    }
+
+    .login-panel {
+        padding: 25px 20px;
+    }
+
+    .dashboard-grid,
+    .class-grid,
+    .participants-list,
+    .criteria-form-grid,
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-card {
+        min-height: 140px;
+    }
+
+    .class-card {
+        min-height: 180px;
+    }
+
+    .presentation-card,
+    .evaluation-card {
+        padding: 18px;
+    }
+
+    .presentation-heading {
+        font-size: 19px;
+    }
+
+    .presentation-actions {
+        flex-direction: column;
+    }
+
+    .presentation-actions .button {
+        width: 100%;
+    }
+
+    .presentation-form-panel,
+    .evaluation-form-panel {
+        padding: 19px;
+    }
+
+    .presentation-form-actions,
+    .evaluation-form-actions,
+    .form-actions {
+        flex-direction: column-reverse;
+    }
+
+    .presentation-form-actions .button,
+    .evaluation-form-actions .button,
+    .form-actions .button {
+        width: 100%;
+    }
+
+    .score-item {
+        grid-template-columns: 1fr 38px;
+        gap: 7px 10px;
+    }
+
+    .score-label {
+        grid-column: 1 / -1;
+    }
+
+    .score-track {
+        grid-column: 1;
+    }
+
+    .score-value {
+        grid-column: 2;
+    }
+
+    .roster-section {
+        padding: 17px;
+    }
+
+    .roster-card {
+        padding: 11px;
+    }
+
+    .roster-status {
+        display: none;
+    }
+
+    th,
+    td {
+        padding: 10px;
+        font-size: 12px;
+    }
+
+    .footer {
+        padding: 18px 12px;
+    }
+}
+
+/* =========================================
+   TELAS MUITO PEQUENAS
+   ========================================= */
+
+@media (max-width: 360px) {
+    .brand {
+        font-size: 13px;
+    }
+
+    .brand-mark {
+        width: 29px;
+        height: 29px;
+    }
+
+    .button-back {
+        font-size: 11px;
+    }
+
+    .topbar {
+        padding-left: 3%;
+        padding-right: 3%;
+    }
+
+    .container {
+        width: 94%;
+    }
+}
+
+
+/* ========================================
+   LOGIN RESPONSIVO
+   ======================================== */
+
+.auth-layout {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+/* Ajustes para celulares e telas estreitas */
+@media (max-width: 600px) {
+    .auth-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 24px;
+        width: 100%;
+        padding: 20px 0;
+        align-items: stretch;
+    }
+
+    .auth-layout .intro {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .auth-layout .intro h1 {
+        font-size: clamp(1.8rem, 7vw, 2.3rem);
+        line-height: 1.2;
+        overflow-wrap: break-word;
+    }
+
+    .auth-layout .intro p {
+        max-width: 100%;
+    }
+
+    .auth-layout .login-panel {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+    .auth-layout .login-panel input {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .auth-layout .login-panel .button {
+        width: 100%;
+    }
+}

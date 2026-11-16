@@ -1,0 +1,127 @@
+
+{% extends "base.html" %}
+
+{% block title %}Apresentações | Palco em Cena{% endblock %}
+
+{% block content %}
+
+<section class="welcome presentations-header">
+
+    <span class="eyebrow">PALCO EM CENA</span>
+
+    <h1>Apresentações</h1>
+
+    <p class="muted">
+        Acompanhe as apresentações e o desenvolvimento artístico dos alunos.
+    </p>
+
+    {% if current_user.perfil in ("admin", "professor") %}
+        <a
+            class="button button-primary"
+            href="{{ url_for('avaliacoes.nova_apresentacao') }}"
+        >
+            + Nova apresentação
+        </a>
+    {% endif %}
+
+</section>
+
+{% if apresentacoes %}
+
+    <section class="presentations-list">
+
+        {% for apresentacao in apresentacoes %}
+
+            <article class="presentation-card">
+
+                <div class="presentation-date">
+                    <span class="presentation-date-day">
+                        {{ apresentacao.data.strftime("%d") }}
+                    </span>
+
+                    <span class="presentation-date-month">
+                        {{ apresentacao.data.strftime("%m") }}
+                    </span>
+
+                    <span class="presentation-date-year">
+                        {{ apresentacao.data.strftime("%Y") }}
+                    </span>
+                </div>
+
+                <div class="presentation-content">
+
+                    <div class="presentation-heading">
+                        <h2>{{ apresentacao.titulo }}</h2>
+
+                        <span class="tag">
+                            {{ apresentacao.participantes|length }}
+                            participante(s)
+                        </span>
+                    </div>
+
+                    {% if apresentacao.descricao %}
+                        <p class="muted presentation-description">
+                            {{ apresentacao.descricao }}
+                        </p>
+                    {% else %}
+                        <p class="muted presentation-description">
+                            Nenhuma descrição informada.
+                        </p>
+                    {% endif %}
+
+                    <div class="presentation-actions">
+
+                        {% if current_user.perfil in ("admin", "professor") %}
+
+                            <a
+                                class="button button-primary button-link"
+                                href="{{ url_for('avaliacoes.avaliar', apresentacao_id=apresentacao.id) }}"
+                            >
+                                Avaliar apresentação
+                            </a>
+
+                        {% endif %}
+
+                        <a
+                            class="button button-secondary button-link"
+                            href="{{ url_for('avaliacoes.resultados', apresentacao_id=apresentacao.id) }}"
+                        >
+                            Ver avaliações
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+        {% endfor %}
+
+    </section>
+
+{% else %}
+
+    <section class="panel empty-presentations">
+
+        <div class="empty-presentations-icon">🎭</div>
+
+        <h2>Nenhuma apresentação cadastrada</h2>
+
+        <p class="muted">
+            Quando uma apresentação for cadastrada, ela aparecerá aqui.
+        </p>
+
+        {% if current_user.perfil in ("admin", "professor") %}
+            <a
+                class="button button-primary button-link"
+                href="{{ url_for('avaliacoes.nova_apresentacao') }}"
+            >
+                Cadastrar apresentação
+            </a>
+        {% endif %}
+
+    </section>
+
+{% endif %}
+
+{% endblock %}

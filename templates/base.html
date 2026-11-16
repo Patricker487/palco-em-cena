@@ -1,0 +1,134 @@
+
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#242424">
+
+    <title>{% block title %}Palco em Cena{% endblock %}</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+</head>
+
+<body>
+
+    <a class="skip-link" href="#main-content">
+        Ir para o conteúdo
+    </a>
+
+    <header class="topbar">
+
+        <div class="header-left">
+
+            {% if current_user.is_authenticated %}
+
+                <button
+                    class="button button-back"
+                    type="button"
+                    onclick="voltarPagina()"
+                    aria-label="Voltar para a página anterior"
+                >
+                    <span aria-hidden="true">←</span>
+                    <span>Voltar</span>
+                </button>
+
+            {% endif %}
+
+            <a class="brand" href="{{ url_for('auth.index') }}">
+
+                <span class="brand-mark">P</span>
+
+                <span>Palco em Cena</span>
+
+            </a>
+
+        </div>
+
+        {% if current_user.is_authenticated %}
+
+            <form
+                class="logout-form"
+                method="POST"
+                action="{{ url_for('auth.logout') }}"
+            >
+
+                <input
+                    type="hidden"
+                    name="csrf_token"
+                    value="{{ csrf_token() }}"
+                >
+
+                <button
+                    class="button button-quiet logout-button"
+                    type="submit"
+                >
+                    Sair
+                </button>
+
+            </form>
+
+        {% endif %}
+
+    </header>
+
+    <main class="container" id="main-content">
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+
+            {% if messages %}
+
+                <div class="flash-messages">
+
+                    {% for category, message in messages %}
+
+                        <div
+                            class="alert alert-{{ category }}"
+                            role="status"
+                        >
+                            {{ message }}
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% endif %}
+
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+
+    </main>
+
+    <footer class="footer">
+        Palco em Cena · Desenvolvimento artístico em foco
+    </footer>
+
+    <script>
+        function voltarPagina() {
+            const anterior = document.referrer;
+
+            try {
+                if (
+                    anterior &&
+                    new URL(anterior).origin === window.location.origin
+                ) {
+                    window.history.back();
+                    return;
+                }
+            } catch (erro) {
+                // Se a origem não puder ser validada, usa o destino padrão.
+            }
+
+            window.location.href = "{{ url_for('dashboard.index') }}";
+        }
+    </script>
+
+</body>
+
+</html>

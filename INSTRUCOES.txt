@@ -1,0 +1,30 @@
+PALCO EM CENA - MODULO DE TURMAS E VINCULO DE ALUNOS
+
+IMPORTANTE: este pacote NAO inclui seu banco de dados, arquivo .env ou ambiente virtual. Ele nao substitui nem apaga os dados existentes.
+
+1. Feche o servidor Flask com Ctrl+C.
+2. Faça uma cópia de segurança da pasta do projeto, especialmente instance/palco.db.
+3. Copie models/turma.py para a pasta models do projeto.
+4. Substitua models/usuario.py pelo arquivo deste pacote.
+5. Copie routes/turmas.py para a pasta routes do projeto.
+6. Substitua routes/admin.py, app.py, templates/dashboard.html, templates/admin/usuarios.html e templates/admin/usuario_form.html pelos arquivos deste pacote.
+7. Copie templates/turmas/ (lista.html e detalhes.html) para a pasta templates/turmas do projeto.
+8. Copie o conteúdo de style-additions.css para o FINAL de static/css/style.css.
+
+MIGRACAO SEGURA DO BANCO (execute uma unica vez):
+Com o ambiente virtual ativado, no terminal dentro da pasta do projeto, execute:
+flask --app app migrar-turmas
+
+O comando cria as três turmas (Juvenil, Adolescentes e Adultos) e adiciona a coluna turma_id à tabela usuarios se ela ainda não existir. Ele não apaga contas nem senhas.
+
+Depois inicie o servidor:
+flask --app app run --debug
+
+Atualize o navegador com Ctrl+F5. Entre como administrador. Edite o aluno de teste e selecione uma turma.
+
+REGRAS IMPLEMENTADAS:
+- Cada aluno pode estar vinculado a uma única turma.
+- Os professores têm acesso às três turmas, sem vínculo individual com uma delas.
+- Administradores gerenciam usuários e matrículas.
+- Professores podem consultar as listas de alunos.
+- Contas de alunos existentes ficam sem turma até o administrador escolher uma ao editar.
